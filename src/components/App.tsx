@@ -1,9 +1,23 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Preview } from "./Preview";
 
 const MonacoEditor = React.lazy(() => import("./MonacoEditor"));
 
+const initialCode = `
+import React from "react";
+import ReactDOM from "react-dom";
+function App(props: {text: string}){
+  return <div>Hello, {props.text}</div>
+}
+
+// const root = document.querySelector("#root") as HTMLElement;
+const el = document.createElement("div");
+document.body.append(el);
+ReactDOM.render(<App text="john doe" />, el);
+`;
+
 export function App() {
+  const [code, setCode] = useState(initialCode);
   return (
     <div
       style={{
@@ -15,11 +29,14 @@ export function App() {
     >
       <div style={{ flex: 3 }}>
         <Suspense fallback="loading...">
-          <MonacoEditor />
+          <MonacoEditor
+            initialCode={initialCode}
+            onChange={(value) => setCode(value)}
+          />
         </Suspense>
       </div>
       <div style={{ flex: 2 }}>
-        <Preview />
+        <Preview code={code} />
       </div>
     </div>
   );

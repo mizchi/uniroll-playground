@@ -16,6 +16,24 @@ module.exports = {
         },
       },
       {
+        test: /\.worker.ts$/,
+        use: [
+          {
+            loader: "comlink-loader",
+            options: {
+              singleton: true,
+            },
+          },
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+
+      {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
@@ -33,6 +51,6 @@ module.exports = {
     new HTMLPlugin({
       template: path.join(__dirname, "src/index.html"),
     }),
-    new WorkerPlugin(),
+    new WorkerPlugin({ globalObject: "self" }),
   ],
 };

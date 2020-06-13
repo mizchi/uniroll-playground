@@ -32,18 +32,10 @@ monaco.languages.typescript.typescriptDefaults.addExtraLib(
   "file:///node_modules/@types/react-dom/index.d.ts"
 );
 
-const code = `
-import React from "react";
-import ReactDOM from "react-dom";
-function App(props: {text: string}){
-  return <div>Hello, {props.text}</div>
-}
-
-const root = document.querySelector("#root") as HTMLElement;
-ReactDOM.render(<App text="john doe" />, root);
-`;
-
-export default function MonacoEditor() {
+export default function MonacoEditor(props: {
+  initialCode: string;
+  onChange: (value: string) => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [
     editor,
@@ -52,7 +44,7 @@ export default function MonacoEditor() {
   useEffect(() => {
     if (ref.current) {
       const model = monaco.editor.createModel(
-        code,
+        props.initialCode,
         "typescript",
         monaco.Uri.parse("file:///index.tsx")
       );
@@ -72,6 +64,9 @@ export default function MonacoEditor() {
         minimap: {
           enabled: false,
         },
+      });
+      ed.onDidChangeModelContent((_ev) => {
+        props.onChange(ed.getValue());
       });
       setEditor(ed);
     }
