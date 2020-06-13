@@ -77,8 +77,10 @@ export function Preview(props: { code: string }) {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <div style={{ height: "36px", width: "100%" }}>
-        <button onClick={run}>run(ctrl-r)</button>
-        | autorun:
+        <button onClick={run} disabled={building}>
+          run(ctrl-r)
+        </button>
+        autorun:
         <input
           type="checkbox"
           checked={autorun}

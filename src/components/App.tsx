@@ -3,14 +3,12 @@ import { Preview } from "./Preview";
 
 const MonacoEditor = React.lazy(() => import("./MonacoEditor"));
 
-const initialCode = `
-import React from "react";
+const initialCode = `import React from "react";
 import ReactDOM from "react-dom";
 function App(props: {text: string}){
   return <div>Hello, {props.text}</div>
 }
 
-// const root = document.querySelector("#root") as HTMLElement;
 const el = document.createElement("div");
 document.body.append(el);
 ReactDOM.render(<App text="john doe" />, el);

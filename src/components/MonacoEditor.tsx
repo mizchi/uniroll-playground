@@ -32,6 +32,12 @@ monaco.languages.typescript.typescriptDefaults.addExtraLib(
   "file:///node_modules/@types/react-dom/index.d.ts"
 );
 
+// load types
+monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  `declare module "*";`,
+  "file:///decls.d.ts"
+);
+
 export default function MonacoEditor(props: {
   initialCode: string;
   onChange: (value: string) => void;
