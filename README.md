@@ -3,8 +3,10 @@
 ## TODO
 
 - [x] monaco-editor worker
-- [ ] tsx
+- [x] tsx
+- [ ] react types
 - [ ] 二分割
+- [ ] preview
 
 ## LICENSE
 

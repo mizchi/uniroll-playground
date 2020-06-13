@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as monaco from "monaco-editor";
 import react_d_ts from "!!raw-loader!@types/react/index.d.ts";
+import react_global_d_ts from "!!raw-loader!@types/react/global.d.ts";
+import react_dom_d_ts from "!!raw-loader!@types/react-dom/index.d.ts";
 
 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   jsx: monaco.languages.typescript.JsxEmit.React,
@@ -9,23 +11,36 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   allowNonTsExtensions: true,
   allowJs: true,
   typeRoots: ["./types"],
+  moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+  allowSyntheticDefaultImports: true,
   target: monaco.languages.typescript.ScriptTarget.Latest,
 });
 
 // load types
-monaco.editor.createModel(
+monaco.languages.typescript.typescriptDefaults.addExtraLib(
   react_d_ts,
-  "typescript",
-  monaco.Uri.parse("file:///types/react/index.d.ts")
+  "file:///node_modules/@types/react/index.d.ts"
+);
+
+monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  react_global_d_ts,
+  "file:///node_modules/@types/react/global.d.ts"
+);
+
+monaco.languages.typescript.typescriptDefaults.addExtraLib(
+  react_dom_d_ts,
+  "file:///node_modules/@types/react-dom/index.d.ts"
 );
 
 const code = `
 import React from "react";
+import ReactDOM from "react-dom";
 function App(props: {text: string}){
   return <div>Hello, {props.text}</div>
 }
 
-<App text="john doe" />
+const root = document.querySelector("#root") as HTMLElement;
+ReactDOM.render(<App text="john doe" />, root);
 `;
 
 export default function MonacoEditor() {
@@ -41,6 +56,9 @@ export default function MonacoEditor() {
         "typescript",
         monaco.Uri.parse("file:///index.tsx")
       );
+      model.updateOptions({
+        tabSize: 2,
+      });
 
       const ed = monaco.editor.create(ref.current, {
         model,
