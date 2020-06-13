@@ -1,12 +1,21 @@
 # Doc and run
 
-## TODO
+[uniroll-playground](https://uniroll-playground.netlify.app/)
 
-- [x] monaco-editor worker
-- [x] tsx
-- [ ] react types
-- [ ] 二分割
-- [ ] preview
+## Develop
+
+```
+yarn install
+yarn webpack-dev-server
+```
+
+## Build and Deploy
+
+```bash
+yarn webpack --mode production
+# npm i -g netlify-cli
+netlify deploy --prod -d dist
+```
 
 ## LICENSE
 
