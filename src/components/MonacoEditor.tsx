@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as monaco from "monaco-editor";
+import react_d_ts from "!!raw-loader!@types/react/index.d.ts";
 
 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   jsx: monaco.languages.typescript.JsxEmit.React,
@@ -7,8 +8,16 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   reactNamespace: "React",
   allowNonTsExtensions: true,
   allowJs: true,
+  typeRoots: ["./types"],
   target: monaco.languages.typescript.ScriptTarget.Latest,
 });
+
+// load types
+monaco.editor.createModel(
+  react_d_ts,
+  "typescript",
+  monaco.Uri.parse("file:///types/react/index.d.ts")
+);
 
 const code = `
 import React from "react";
