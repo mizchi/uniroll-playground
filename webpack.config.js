@@ -1,5 +1,6 @@
 const path = require("path");
 const HTMLPlugin = require("html-webpack-plugin");
+const MonacoEditorPlugin = require("monaco-editor-webpack-plugin");
 const WorkerPlugin = require("worker-plugin");
 
 module.exports = {
@@ -28,6 +29,7 @@ module.exports = {
     extensions: [".js", ".ts", ".tsx", ".json", ".mjs", ".wasm"],
   },
   plugins: [
+    new MonacoEditorPlugin(),
     new HTMLPlugin({
       template: path.join(__dirname, "src/index.html"),
     }),
