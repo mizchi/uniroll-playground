@@ -1,4 +1,4 @@
-# Doc and run
+# uniroll-playground
 
 [uniroll-playground](https://uniroll-playground.netlify.app/)
 
