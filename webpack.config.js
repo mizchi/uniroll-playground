@@ -41,10 +41,23 @@ module.exports = {
         test: /\.ttf$/,
         use: ["file-loader"],
       },
+      // NOTE: maybe, we don't need the below, due to not use @rollup/pluginutils
+      // https://github.com/mizchi/uniroll#how-to-build-your-uniroll
+      {
+        test: /\.js$/,
+        include: /pluginutils/, // for @rollup/pluginutils
+        type: "javascript/auto",
+      },
     ],
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".json", ".mjs", ".wasm"],
+  },
+  // externals: {
+  //   chokidar: 'chokidar'
+  // },
+  node: {
+    fs: 'empty'
   },
   plugins: [
     new MonacoEditorPlugin(),
