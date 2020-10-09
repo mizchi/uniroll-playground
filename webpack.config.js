@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require("path");
 const HTMLPlugin = require("html-webpack-plugin");
 const MonacoEditorPlugin = require("monaco-editor-webpack-plugin");
@@ -54,12 +55,13 @@ module.exports = {
     extensions: [".js", ".ts", ".tsx", ".json", ".mjs", ".wasm"],
   },
   // externals: {
-  //   chokidar: 'chokidar'
+  //   fsevents: "require('fsevents')"
   // },
   node: {
     fs: 'empty'
   },
   plugins: [
+    new webpack.IgnorePlugin(/fsevents/),
     new MonacoEditorPlugin(),
     new HTMLPlugin({
       template: path.join(__dirname, "src/index.html"),
