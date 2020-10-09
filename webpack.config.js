@@ -5,6 +5,9 @@ const MonacoEditorPlugin = require("monaco-editor-webpack-plugin");
 const WorkerPlugin = require("worker-plugin");
 
 module.exports = {
+  output: {
+    globalObject: "self"
+  },
   module: {
     rules: [
       {
@@ -33,7 +36,6 @@ module.exports = {
           },
         ],
       },
-
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
@@ -54,11 +56,8 @@ module.exports = {
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".json", ".mjs", ".wasm"],
   },
-  // externals: {
-  //   fsevents: "require('fsevents')"
-  // },
   node: {
-    fs: 'empty'
+    fs: "empty"
   },
   plugins: [
     new webpack.IgnorePlugin(/fsevents/),
@@ -66,6 +65,8 @@ module.exports = {
     new HTMLPlugin({
       template: path.join(__dirname, "src/index.html"),
     }),
-    new WorkerPlugin({ globalObject: "self" }),
+    new WorkerPlugin({
+      globalObject: "self"
+    }),
   ],
 };
